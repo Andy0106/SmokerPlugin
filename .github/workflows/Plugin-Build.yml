@@ -14,8 +14,7 @@ on:
         description: 'Message (x.x.x Update:<br>)'
 
 jobs:
-  build:
-
+  Build:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,6 +28,11 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn clean package
+    
+  Artifact:
+    runs-on: ubuntu-latest
+    
+    steps:
     - name: Upload a Build
       uses: actions/upload-artifact@v2.3.1
       if: success()
@@ -41,6 +45,13 @@ jobs:
       with:
         name: Code.zip
         path: /home/runner/work/SmokerPlugin/SmokerPlugin/src
+    
+    needs: Build
+    
+  MakeRelease:
+    runs-on: ubuntu-latest
+    
+    steps:
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -52,4 +63,6 @@ jobs:
         body: "${{ github.event.inputs.Message }}<br>下载请前往Workflow"
         draft: false
         prerelease: false
+    
+    needs: Build
       
