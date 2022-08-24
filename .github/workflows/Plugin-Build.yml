@@ -6,10 +6,10 @@ name: Plugin Build
 on:
   workflow_dispatch:
     inputs:
-      logLevel:
+      Version:
         description: 'Version (vx.x.x)'     
         required: true
-      tags:
+      Message:
         required: true
         description: 'Message (x.x.x Update:<br>)'
 
