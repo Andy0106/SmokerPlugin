@@ -1,5 +1,7 @@
 # SmokerPlugin
 
+![Title](https://repository-images.githubusercontent.com/528374252/f2ff12d0-8e04-4d96-8373-fd71fb921fe3)
+
 这就是 EOS Smoker 主服的专用插件 —— SmokerPlugin 的源代码仓库啦！由 Xiaoyi311 开发！
 
 ## 版本更新
