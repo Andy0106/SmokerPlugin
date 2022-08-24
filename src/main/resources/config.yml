@@ -1,0 +1,83 @@
+#功能
+mods:
+  #机器人
+  Robot:
+    #是否启动
+    enabled: false
+    #启用机器人的QQ号
+    qqNumber: 00000000
+    #启用机器人的群号
+    groupNumber: 00000000
+  #监狱
+  Jail:
+    #是否启动
+    enabled: true
+    #中心钟时间刻（游戏刻）
+    timerTick: 20
+    #是否计算非在线时长
+    countOfflineTime: true
+    #展示Boss栏
+    showBossBar: true
+
+#语言
+lang:
+  #游戏
+  Game:
+    #无权限
+    NoPermission: "Ops~ 你好像没有权限这样做"
+    #命令错误
+    CommandError: "哎呀，命令好像不对哦。。使用 /sp help 看看吧"
+    #重载插件
+    PluginReload: "插件重载完成"
+    #发送者错误
+    SenderError: "此命令只能由玩家使用"
+    #功能未启动
+    NotOpen: "这个功能并没有启动哎"
+    #玩家不存在
+    NoPlayer: "此玩家不存在"
+    #时间格式错误
+    TimeTypeError: "您输入的时间格式错误"
+  #监狱
+  Jail:
+    #前缀
+    Prefix: "[监狱系统] "
+    #设置坐标1
+    SetPos1: "监狱坐标1设置完成"
+    #设置坐标2
+    SetPos2: "监狱坐标2设置完成"
+    #设置入狱点
+    SetJoinPos: "入狱点设置完成"
+    #设置出狱点
+    SetOutPos: "出狱点设置完成"
+    #监狱列表
+    JailList: "目前监狱列表: \n{JailList}"
+    #未设置范围
+    PosNull: "未设置监狱范围或出入狱点，请先设置"
+    #创建监狱
+    JailCreate: "监狱 {JailName} 已创建！"
+    #监狱已存在
+    JailExists: "此监狱名已存在"
+    #监狱已存在
+    NoJail: "此监狱不存在"
+    #监狱玩家列表
+    JailPlayer: "目前 {JailName} 监狱玩家列表: \n{JailPlayerList}"
+    #有玩家被关进监狱
+    Bye: "玩家 {Player} 被 {Sender} 关进了 {JailName} 监狱 {Time}"
+    #有玩家被关进监狱标题
+    ByeToPlayer: "剩余 {Time}"
+    #Op被关进监狱
+    IsOP: "你不能把他关进监狱！"
+    #玩家正在服刑
+    IsJailing: "{PlayerName} 正在其他监狱服刑！为保证误操作请先解除服刑！"
+    #玩家已释放
+    PlayerBack: "{PlayerName} 现在已经被释放！"
+    #玩家没有被监禁
+    PlayerNoJail: "{PlayerName} 没有被监禁！"
+    #玩家在监狱使用命令
+    CanNotSendCommand: "你不能在监狱中使用命令"
+    #重设监狱位置信息
+    JailReset: "{JailName} 监狱位置信息已重设"
+    #监狱被删除
+    JailDelete: "{JailName} 已被删除！"
+    #有玩家服刑不可更改
+    CanNotChange: "有玩家正在服刑！不能更改监狱！"

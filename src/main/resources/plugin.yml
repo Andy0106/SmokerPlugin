@@ -1,0 +1,33 @@
+name: SmokerPlugin
+version: '1.3.0'
+main: xiaoyi311.smoker.smokerplugin.PluginMain
+api-version: 1.16
+prefix: SmokerPlugin
+authors: [ Xiaoyi311 ]
+description: QWQ～这是专门给Smoker服务器使用的专用插件～
+website: skywolrdstudio.top
+softdepend:  [MiraiMC]
+commands:
+  smokerplugin:
+    aliases: ["smokerp", "sp"]
+    description: SmokerPlugin 插件命令
+    usage: /smokerplugin <commmand>
+permissions:
+  smokerplugin.reload:
+    description: "重载插件"
+    default: op
+  smokerplugin.jail.create:
+    description: "创建监狱"
+    default: op
+  smokerplugin.jail.bye:
+    description: "送一位玩家去服刑"
+    default: op
+  smokerplugin.jail.back:
+    description: "解除玩家服刑"
+    default: op
+  smokerplugin.jail.reset:
+    description: "重设监狱位置信息"
+    default: op
+  smokerplugin.jail.delete:
+    description: "删除监狱"
+    default: op
