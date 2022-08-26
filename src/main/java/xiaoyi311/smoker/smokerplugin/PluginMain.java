@@ -1,5 +1,7 @@
 package xiaoyi311.smoker.smokerplugin;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -7,6 +9,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import xiaoyi311.smoker.smokerplugin.Mods.MyJail;
+import xiaoyi311.smoker.smokerplugin.Mods.MyPAPI;
 import xiaoyi311.smoker.smokerplugin.Mods.MyRobot;
 
 import java.io.File;
@@ -39,12 +42,47 @@ public final class PluginMain extends JavaPlugin {
     //日志输出
     public Logger logger;
 
+    //依赖检测
+    public boolean[] check = {false, false};
+
     //启动时
     @Override
     public void onEnable() {
         INIT();
-        logger.info("SmokerPlugin 插件已启动～");
+        logger.info("SmokerPlugin 插件正在启动");
+        logger.info("   _____                 _             _____  _             _            \s");
+        logger.info("  / ____|               | |           |  __ \\| |           (_)          \s");
+        logger.info(" | (___  _ __ ___   ___ | | _____ _ __| |__) | |_   _  __ _ _ _ __       \s");
+        logger.info("  \\___ \\| '_ ` _ \\ / _ \\| |/ / _ \\ '__|  ___/| | | | |/ _` | | '_ \\\s");
+        logger.info("  ____) | | | | | | (_) |   <  __/ |  | |    | | |_| | (_| | | | | |       ");
+        logger.info(" |_____/|_| |_| |_|\\___/|_|\\_\\___|_|  |_|    |_|\\__,_|\\__, |_|_| |_|  ");
+        logger.info("                                                       __/ |             \s");
+        logger.info("                                                      |___/              \s");
+        logger.info("                     SmokerPlugin v1.4.0 By Xiaoyi311                      ");
+        logger.info("———————————————————————————————————————————————————————————————————————————");
+        logger.info("[*] 正在初始化 SmokerPlugin，开始检测插件依赖情况！");
+        CHECK();
         INIT_MOD();
+    }
+
+    //检查依赖
+    private void CHECK() {
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            logger.info(ChatColor.GREEN + "[√] 检测到 PAPI！已启用 PAPI 相关功能！");
+            new MyPAPI().register();
+            check[0] = true;
+        } else {
+            logger.info(ChatColor.RED + "[×] 未检测到 PAPI！已禁用 PAPI 相关功能！");
+            check[0] = false;
+        }
+
+        if (Bukkit.getPluginManager().getPlugin("MiraiMC") != null) {
+            logger.info(ChatColor.GREEN + "[√] 检测到 MiraiMC！已启用 MiraiMC 相关功能！");
+            check[1] = true;
+        } else {
+            logger.info(ChatColor.RED + "[×] 未检测到 MiraiMC！已禁用 MiraiMC 相关功能！");
+            check[1] = false;
+        }
     }
 
     //加载功能

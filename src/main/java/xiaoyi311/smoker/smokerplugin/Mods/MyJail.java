@@ -693,7 +693,8 @@ public class MyJail {
                         /sp jail delete <JailName> -> 删除一个监狱
                         /sp jail back <PlayerName> -> 释放一位玩家
                         /sp jail bye <JailName> <PlayerName> <Time> <d/h/m/s> [Why] -> 让一位玩家服刑
-                        ---------------- SmokerPlugin-Jail ----------------""";
+                        ---------------- SmokerPlugin-Jail ----------------
+                """;
     }
 
     //命令补全
@@ -731,6 +732,30 @@ public class MyJail {
                 break;
         }
         return null;
+    }
+
+    //请求PAPI
+    public String ReqPAPI(OfflinePlayer player, String param) {
+        switch (param){
+            //我的监禁时间
+            case "jailTimeMe":
+                //玩家是否被监禁
+                if (JailPlayerList.containsKey(player.getUniqueId())){
+                    return GetDateMessage(JailPlayerList.get(player.getUniqueId()).getRecord().Time);
+                }
+                return "";
+            //我的监禁原因
+            case "jailReasonMe":
+                //玩家是否被监禁
+                if (JailPlayerList.containsKey(player.getUniqueId())){
+                    return JailPlayerList.get(player.getUniqueId()).getRecord().Reason;
+                }
+                return "";
+
+            //未知
+            default:
+                return null;
+        }
     }
 
     //监狱

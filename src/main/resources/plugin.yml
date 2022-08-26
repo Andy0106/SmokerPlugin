@@ -1,12 +1,12 @@
 name: SmokerPlugin
-version: '1.3.0'
+version: '1.4.0'
 main: xiaoyi311.smoker.smokerplugin.PluginMain
 api-version: 1.16
 prefix: SmokerPlugin
 authors: [ Xiaoyi311 ]
 description: QWQ～这是专门给Smoker服务器使用的专用插件～
 website: skywolrdstudio.top
-softdepend:  [MiraiMC]
+softdepend:  [MiraiMC, PlaceholderAPI]
 commands:
   smokerplugin:
     aliases: ["smokerp", "sp"]

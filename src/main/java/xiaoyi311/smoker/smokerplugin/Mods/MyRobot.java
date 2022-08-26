@@ -20,7 +20,7 @@ public class MyRobot {
 
     //实例化
     public MyRobot(long QQNumber, long GroupNumber) {
-        if (PluginMain.INSTANCE.config.getBoolean("mods.Robot.enabled", true)){
+        if (PluginMain.INSTANCE.config.getBoolean("mods.Robot.enabled", true) && PluginMain.INSTANCE.check[1]){
             if (QQNumber == 0) {
                 PluginMain.INSTANCE.logger.warning("警告！QQ号未输入！QQ机器人功能将禁用");
                 return;
