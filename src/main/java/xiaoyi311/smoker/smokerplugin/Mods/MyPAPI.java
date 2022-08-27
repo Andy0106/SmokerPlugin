@@ -35,9 +35,9 @@ public class MyPAPI extends PlaceholderExpansion {
     @Override
     public String onRequest(OfflinePlayer player, String params) {
         String[] Params = params.split("_");
-        switch (Params[1]){
+        switch (Params[0]){
             case "jail":
-                return PluginMain.INSTANCE.ModJail.ReqPAPI(player, Params[2]);
+                return PluginMain.INSTANCE.ModJail.ReqPAPI(player, Params[1]);
             default:
                 return null;
         }
