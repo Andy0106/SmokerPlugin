@@ -3,10 +3,9 @@ package xiaoyi311.smoker.smokerplugin;
 import org.bukkit.Location;
 import org.json.simple.JSONObject;
 
-import java.util.Base64;
+import java.util.ArrayList;
 
 public class MyUtils {
-    private static final Base64.Encoder BASE64_URL_ENCODER = Base64.getUrlEncoder().withoutPadding();
 
     //JSON数据读取
     public static Object IsJsonObjectRead(JSONObject json, String key){
@@ -36,5 +35,11 @@ public class MyUtils {
     //是否位于区域内
     public static boolean IsInRegion(Location pos1, Location pos2, Location playerPos){
         return IsInInts(pos1.getBlockX(), pos2.getBlockX(), playerPos.getBlockX()) && IsInInts(pos1.getBlockY(), pos2.getBlockY(), playerPos.getBlockY()) && IsInInts(pos1.getBlockZ(), pos2.getBlockZ(), playerPos.getBlockZ());
+    }
+
+    //JSON列表数据读取
+    public static Object IsJsonObjectListRead(JSONObject json, String key) {
+        Object DataTemp = json.get(key);
+        return DataTemp == null ? new ArrayList<JSONObject>() : DataTemp;
     }
 }

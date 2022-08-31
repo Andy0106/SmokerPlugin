@@ -18,6 +18,10 @@ mods:
     countOfflineTime: true
     #展示Boss栏
     showBossBar: true
+    #指令白名单
+    commandWhiteList:
+      - /login
+      - /register
 
 #语言
 lang:
@@ -41,6 +45,8 @@ lang:
   Jail:
     #前缀
     Prefix: "[监狱系统] "
+    #设置世界
+    SetWorld: "监狱世界设置完成"
     #设置坐标1
     SetPos1: "监狱坐标1设置完成"
     #设置坐标2

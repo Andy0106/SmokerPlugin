@@ -12,7 +12,7 @@ public class MyListener implements Listener {
     //玩家发送命令
     @EventHandler
     public void PlayerCommandPreprocessEvent(PlayerCommandPreprocessEvent e){
-        if (!MyJail.IsCanUseCommands(e.getPlayer())){
+        if (!MyJail.IsCanUseCommands(e.getPlayer(), e.getMessage())){
             e.setCancelled(true);
         }
     }

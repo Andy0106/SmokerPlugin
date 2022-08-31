@@ -16,6 +16,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 /*
@@ -58,7 +60,7 @@ public final class PluginMain extends JavaPlugin {
         logger.info(" |_____/|_| |_| |_|\\___/|_|\\_\\___|_|  |_|    |_|\\__,_|\\__, |_|_| |_|  ");
         logger.info("                                                       __/ |             \s");
         logger.info("                                                      |___/              \s");
-        logger.info("                     SmokerPlugin v1.4.0 By Xiaoyi311                      ");
+        logger.info("                     SmokerPlugin v1.5.0 By Xiaoyi311                      ");
         logger.info("———————————————————————————————————————————————————————————————————————————");
         logger.info("[*] 正在初始化 SmokerPlugin，开始检测插件依赖情况！");
         CHECK();
@@ -94,7 +96,8 @@ public final class PluginMain extends JavaPlugin {
         ModJail = new MyJail(
                 config.getLong("mods.Jail.timerTick", 200),
                 config.getBoolean("mods.Jail.countOfflineTime", true),
-                config.getBoolean("mods.Jail.showBossBar", true)
+                config.getBoolean("mods.Jail.showBossBar", true),
+                (List<String>) config.getList("mods.Jail.commandWhiteList", new ArrayList<>())
         );
     }
 
@@ -137,6 +140,12 @@ public final class PluginMain extends JavaPlugin {
     @Override
     public void onDisable() {
         logger.info("SmokerPlugin 插件已卸载～");
+        SAVE();
+    }
+
+    //保存
+    private void SAVE() {
+        ModJail.save();
     }
 
     //重载插件
