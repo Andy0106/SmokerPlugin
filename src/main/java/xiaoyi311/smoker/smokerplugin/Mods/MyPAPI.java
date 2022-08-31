@@ -5,33 +5,36 @@ import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 import xiaoyi311.smoker.smokerplugin.PluginMain;
 
+/*
+PAPI 支持
+ */
 public class MyPAPI extends PlaceholderExpansion {
 
-    //作者
+    //作者作者
     @Override
     public @NotNull String getAuthor() {
         return "Xiaoyi311";
     }
 
-    //插件名
+    //榜以名
     @Override
     public @NotNull String getIdentifier() {
         return "SmokerPlugin";
     }
 
-    //版本
+    //本是本
     @Override
     public @NotNull String getVersion() {
         return "1.4.0";
     }
 
-    //保持启用
+    //保启用
     @Override
     public boolean persist() {
         return true;
     }
 
-    //收到参数请求时
+    //得参数请时
     @Override
     public String onRequest(OfflinePlayer player, String params) {
         String[] Params = params.split("_");

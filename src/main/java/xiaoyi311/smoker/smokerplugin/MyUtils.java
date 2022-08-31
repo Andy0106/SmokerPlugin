@@ -5,15 +5,18 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
+/*
+SP 工具类
+ */
 public class MyUtils {
 
-    //JSON数据读取
+    //JSON 读取度
     public static Object IsJsonObjectRead(JSONObject json, String key){
         Object DataTemp = json.get(key);
         return DataTemp == null ? new JSONObject() : DataTemp;
     }
 
-    //是否为数字
+    //这是否为几个字
     public static boolean IsInt(String str){
         try{
             Integer.parseInt(str);
@@ -32,12 +35,12 @@ public class MyUtils {
         }
     }
 
-    //是否位于区域内
+    //其在境内
     public static boolean IsInRegion(Location pos1, Location pos2, Location playerPos){
         return IsInInts(pos1.getBlockX(), pos2.getBlockX(), playerPos.getBlockX()) && IsInInts(pos1.getBlockY(), pos2.getBlockY(), playerPos.getBlockY()) && IsInInts(pos1.getBlockZ(), pos2.getBlockZ(), playerPos.getBlockZ());
     }
 
-    //JSON列表数据读取
+    //度读取 JSON 表
     public static Object IsJsonObjectListRead(JSONObject json, String key) {
         Object DataTemp = json.get(key);
         return DataTemp == null ? new ArrayList<JSONObject>() : DataTemp;

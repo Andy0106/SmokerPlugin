@@ -8,8 +8,11 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import xiaoyi311.smoker.smokerplugin.Mods.MyJail;
 
+/*
+SP 监听系统
+ */
 public class MyListener implements Listener {
-    //玩家发送命令
+    //命发玩家
     @EventHandler
     public void PlayerCommandPreprocessEvent(PlayerCommandPreprocessEvent e){
         if (!MyJail.IsCanUseCommands(e.getPlayer(), e.getMessage())){
@@ -17,19 +20,19 @@ public class MyListener implements Listener {
         }
     }
 
-    //玩家加入服务器
+    //玩家服务器内
     @EventHandler
     public void PlayerJoinEvent(PlayerJoinEvent e){
         MyJail.PlayerJoin(e.getPlayer());
     }
 
-    //玩家退出服务器
+    //玩家服务器退
     @EventHandler
     public void PlayerQuitEvent(PlayerQuitEvent e){
         MyJail.PlayerQuit(e.getPlayer());
     }
 
-    //玩家移动
+    //玩家移
     @EventHandler
     public void PlayerMoveEvent(PlayerMoveEvent e){
         MyJail.OutJailCheck(e.getPlayer());

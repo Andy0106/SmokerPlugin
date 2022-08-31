@@ -22,32 +22,33 @@ import java.util.logging.Logger;
 
 /*
 SP核心
-By Xiaoyi311
+
+注：此代码注释除了用多行注释符的注释其他全部为文言文，并且部分打乱读取顺序
  */
 public final class PluginMain extends JavaPlugin {
 
-    //实例
+    //实例之
     public static PluginMain INSTANCE;
 
-    //用户配置
+    //用户配
     public FileConfiguration config;
 
-    //使用数据
+    //用度
     public JSONObject data;
 
-    //QQ机器人
+    //QQ 机用者
     public MyRobot ModRobot;
 
-    //监狱
+    //狱监
     public MyJail ModJail;
 
-    //日志输出
+    //每天志输送出
     public Logger logger;
 
-    //依赖检测
+    //赖检测
     public boolean[] check = {false, false};
 
-    //启动时
+    //时启
     @Override
     public void onEnable() {
         INIT();
@@ -67,7 +68,7 @@ public final class PluginMain extends JavaPlugin {
         INIT_MOD();
     }
 
-    //检查依赖
+    //依检
     private void CHECK() {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             logger.info(ChatColor.GREEN + "[√] 检测到 PAPI！已启用 PAPI 相关功能！");
@@ -87,7 +88,7 @@ public final class PluginMain extends JavaPlugin {
         }
     }
 
-    //加载功能
+    //加授元载的功劳能
     private void INIT_MOD() {
         ModRobot = new MyRobot(
                 config.getLong("mods.Robot.qqNumber", 0),
@@ -101,9 +102,9 @@ public final class PluginMain extends JavaPlugin {
         );
     }
 
-    //初始化
+    //初化始
     private void INIT() {
-        //基础参数
+        //基参数
         INSTANCE = this;
         logger = getLogger();
         saveDefaultConfig();
@@ -122,7 +123,7 @@ public final class PluginMain extends JavaPlugin {
             e.printStackTrace();
         }
 
-        //绑定命令
+        //绑定令
         PluginCommand command;
         command = getCommand("smokerplugin");
         if (command != null){
@@ -136,19 +137,19 @@ public final class PluginMain extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new MyListener(), this);
     }
 
-    //关闭时
+    //闭时
     @Override
     public void onDisable() {
         logger.info("SmokerPlugin 插件已卸载～");
         SAVE();
     }
 
-    //保存
+    //存
     private void SAVE() {
         ModJail.save();
     }
 
-    //重载插件
+    //重插件
     public void ReloadPlugin() {
         reloadConfig();
         INIT_MOD();

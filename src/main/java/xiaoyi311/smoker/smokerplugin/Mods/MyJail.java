@@ -28,39 +28,39 @@ MongoDB支持
 
  */
 public class MyJail {
-    //是否开启
+    //未开
     private static boolean State = false;
 
-    //是否计算非在线时间
+    //量非在线不久
     private static boolean isCountOffline = true;
 
-    //监狱列表
+    //狱表列表
     private static ConcurrentHashMap<String, Jail> JailList = new ConcurrentHashMap<>();
 
-    //监狱玩家列表
+    //狱中外表
     private static ConcurrentHashMap<UUID, JailPlayer> JailPlayerList = new ConcurrentHashMap<>();
 
-    //指令白名单
+    //有白名
     private static List<String> CommandWhiteList = new ArrayList<>();
 
-    //玩家临时数据
+    //优家临时立成
     private final Map<Player, Jail> TempJail = new HashMap<>();
 
-    //实例化
+    //允实化
     public MyJail(long timerTick, boolean isCountOffline, boolean showBossBar, List<String> commandWhiteList) {
-        //是否开启
+        //愿开之者启否
         if (PluginMain.INSTANCE.config.getBoolean("mods.Jail.enabled", true)){
             try{
-                //清空
+                //清空清空
                 JailPlayerList = new ConcurrentHashMap<>();
                 JailList = new ConcurrentHashMap<>();
 
-                //获取监狱数据
+                //取狱数
                 JSONObject JailData = (JSONObject) MyUtils.IsJsonObjectRead(PluginMain.INSTANCE.data, "Jail");
                 JSONObject Jails = (JSONObject) MyUtils.IsJsonObjectRead(JailData, "Jails");
                 List<JSONObject> Records = (List<JSONObject>) MyUtils.IsJsonObjectListRead(JailData, "Records");
 
-                //读取数据
+                //读书取立
                 Jails.forEach((k, v) -> {
                     JSONObject jb = (JSONObject) v;
                     boolean isAllWorld = Boolean.parseBoolean(jb.get("IsAllWorld").toString());
@@ -86,7 +86,7 @@ public class MyJail {
                 e.printStackTrace();
             }
 
-            //应用配置
+            //置身以处之
             new JailTimer().start(timerTick, 0);
             new JailTimer().start(timerTick, 1);
             MyJail.isCountOffline = isCountOffline;
@@ -96,7 +96,7 @@ public class MyJail {
         }
     }
 
-    //获取日期
+    //取期
     private static String GetDateMessage(Date date){
         StringBuilder sb = new StringBuilder();
         double AllSecond = Math.floor(date.getTime() / 1000);
@@ -115,7 +115,7 @@ public class MyJail {
         return sb.toString();
     }
 
-    //发送监狱标题
+    //发送狱题
     private static void PriSendJailTitle(Player player) {
         JailPlayer jp = JailPlayerList.get(player.getUniqueId());
         String text = ChatColor.translateAlternateColorCodes('&',
@@ -125,13 +125,13 @@ public class MyJail {
         );
     }
 
-    //命令是否允许
+    //令可乎
     public static boolean IsCanUseCommands(Player player, String command){
-        //是否启用
+        //当启用否
         if(State){
-            //是否为监狱玩家
+            //可为狱中顾宗族乎
             if (JailPlayerList.containsKey(player.getUniqueId())){
-                //命令是否不位于白名单
+                //命者不在白名
                 if (!CommandWhiteList.contains(command.split(" ")[0])){
                     PriSendJailTitle(player);
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&',
@@ -145,14 +145,14 @@ public class MyJail {
         return true;
     }
 
-    //越狱检测
+    //环以测之
     public static void OutJailCheck(Player player) {
-        //是否为监狱玩家
+        //可为狱中顾宗族乎
         if (JailPlayerList.containsKey(player.getUniqueId())){
             JailPlayer jp = JailPlayerList.get(player.getUniqueId());
             Jail jail = jp.getJail();
 
-            //是否离开监狱
+            //下狱验
             if (jail.IsAllWorld ?
                     !player.getWorld().getName().equals(jail.WorldName) :
                     !MyUtils.IsInRegion(jail.Pos1, jail.Pos2, player.getLocation().add(0, 1, 0))
@@ -163,23 +163,24 @@ public class MyJail {
         }
     }
 
+    //一儿家追录
     public static void PlayerJoin(Player player) {
-        //是否启用
+        //当启用否
         if(State){
-            //是否为监狱玩家
+            //可为狱中顾宗族乎
             if (JailPlayerList.containsKey(player.getUniqueId())){
                 PriSendJailTitle(player);
             }
         }
     }
 
-    //玩家退出
+    //外退
     public static void PlayerQuit(Player player) {
-        //是否启用
+        //当启用否
         if(State){
-            //是否为监狱玩家
+            //可为狱中顾宗族乎
             if (JailPlayerList.containsKey(player.getUniqueId())){
-                //是否不计算不在线时长
+                //不算不在线长
                 if (isCountOffline){
                     JailPlayer jp = JailPlayerList.get(player.getUniqueId());
                     JailRecord record = jp.record;
@@ -190,9 +191,9 @@ public class MyJail {
         }
     }
 
-    //命令处理
+    //命处分
     public void onCommand(CommandSender sender, String[] args) {
-        //是否开启
+        //愿开之者启否
         if (!State){
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
                     PluginMain.INSTANCE.config.getString("lang.Jail.Prefix", "")
@@ -201,7 +202,7 @@ public class MyJail {
             return;
         }
 
-        //参数是否不足
+        //数不足
         if (args.length == 1){
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
                     PluginMain.INSTANCE.config.getString("lang.Jail.Prefix", "")
@@ -209,14 +210,14 @@ public class MyJail {
             ));
         } else {
              switch (args[1]){
-                 //帮助列表
+                 //佐表列表
                  case "help":
                      sender.sendMessage(GetHelp());
                      break;
 
-                 //监狱列表
+                 //狱表列表
                  case "list":
-                     //参数是否正确
+                     //三者当否
                      if (args.length == 2){
                          sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
                                  PluginMain.INSTANCE.config.getString("lang.Jail.Prefix", "")
@@ -224,7 +225,7 @@ public class MyJail {
                                          .replace("{JailList}", StringUtils.join(JailList.keySet(), ","))
                          ));
                      } else if (args.length == 3) {
-                         //判断监狱是否存在
+                         //断狱在否
                          Jail jail = JailList.get(args[2]);
                          if (jail != null){
                              sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
@@ -247,14 +248,14 @@ public class MyJail {
                      }
                      break;
 
-                 //设置世界
+                 //设世堂堂之世
                  case "setworld":
-                     //是否为玩家
+                     //岂为玩家
                      if (sender instanceof Player player){
-                         //临时数据
+                         //盖立成
                          Jail temp = TempJail.containsKey((Player) sender) ? TempJail.get(player) : new Jail();
 
-                         //设置点一坐标
+                         //设世堂堂之世
                          temp.IsAllWorld = true;
                          temp.WorldName = player.getWorld().getName();
                          TempJail.put(player, temp);
@@ -270,14 +271,14 @@ public class MyJail {
                      }
                      break;
 
-                 //设置点一
+                 //设点一
                  case "setpos1":
-                     //是否为玩家
+                     //岂为玩家
                      if (sender instanceof Player player){
-                         //临时数据
+                         //盖立成
                          Jail temp = TempJail.containsKey((Player) sender) ? TempJail.get(player) : new Jail();
 
-                         //设置点一坐标
+                         //设标坐
                          temp.IsAllWorld = false;
                          temp.Pos2 = player.getLocation();
                          TempJail.put(player, temp);
@@ -293,14 +294,14 @@ public class MyJail {
                      }
                      break;
 
-                 //设置点二
+                 //设点二
                  case "setpos2":
-                     //是否为玩家
+                     //岂为玩家
                      if (sender instanceof Player player){
-                         //临时数据
+                         //盖立成
                          Jail temp = TempJail.containsKey((Player) sender) ? TempJail.get(player) : new Jail();
 
-                         //设置点二坐标
+                         //设标坐
                          temp.IsAllWorld = false;
                          temp.Pos1 = player.getLocation();
                          TempJail.put(player, temp);
@@ -316,11 +317,11 @@ public class MyJail {
                      }
                      break;
 
-                 //设置入狱点
+                 //设下狱点悬于狱
                  case "joinpos":
-                     //是否为玩家
+                     //岂为玩家
                      if (sender instanceof Player player){
-                         //临时数据
+                         //盖立成
                          Jail temp = TempJail.containsKey((Player) sender) ? TempJail.get(player) : new Jail();
 
                          //设置点二坐标
@@ -338,14 +339,14 @@ public class MyJail {
                      }
                      break;
 
-                 //设置出狱点
+                 //设出狱点
                  case "outpos":
-                     //是否为玩家
+                     //岂为玩家
                      if (sender instanceof Player player){
-                         //临时数据
+                         //盖立成
                          Jail temp = TempJail.containsKey((Player) sender) ? TempJail.get(player) : new Jail();
 
-                         //设置点二坐标
+                         //置点二坐标
                          temp.OutPos = player.getLocation();
                          TempJail.put(player, temp);
                          sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
@@ -360,20 +361,20 @@ public class MyJail {
                      }
                      break;
 
-                 //创建监狱
+                 //建狱牢具
                  case "create":
-                     //是否存在权限
+                     //固止于权限乎
                      if (sender.hasPermission("smokerplugin.jail.create")){
-                         //是否为玩家
+                         //岂为玩家
                          if (sender instanceof Player player){
-                             //临时数据
+                             //盖立成
                              Jail temp = TempJail.containsKey((Player) sender) ? TempJail.get(player) : new Jail();
 
-                             //是否已设置范围和出入狱点
+                             //设内、出入狱点
                              if ((temp.IsAllWorld ? temp.WorldName != null : (temp.Pos1 != null && temp.Pos2 != null)) && temp.JoinPos != null && temp.OutPos != null){
-                                 //参数是否正确
+                                 //三者当否
                                  if (args.length == 3){
-                                     //监狱是否存在
+                                     //狱具在狱中者
                                      if (!JailList.containsKey(args[2])){
                                          temp.Name = args[2];
                                          temp.updateJSON();
@@ -418,31 +419,31 @@ public class MyJail {
                      }
                      break;
 
-                 //添加服刑
+                 //加饮鸠而享刑
                  case "bye":
-                     //是否存在权限
+                     //固止于权限乎
                      if (sender.hasPermission("smokerplugin.jail.bye")){
-                         //参数是否正确
+                         //三者当否
                          if ((args.length == 6 || args.length == 7) && MyUtils.IsInt(args[4])){
-                             //监狱是否存在
+                             //狱具在狱中者
                              Jail jail = JailList.get(args[2]);
                              if (jail != null){
-                                 //预备参数
+                                 //备豫数
                                  String reason = "";
                                  if (args.length == 7){
                                      reason = args[6];
                                  }
 
-                                 //玩家是否存在
+                                 //玩家之在否
                                  OfflinePlayer JailPlayer = Bukkit.getOfflinePlayerIfCached(args[3]);
                                  if (JailPlayer != null){
-                                     //玩家是否为op
+                                     //何意识
                                      if(!JailPlayer.isOp()){
-                                         //玩家是否在其他监狱服刑
+                                         //顾在他坐饮刑狱
                                          JailPlayer player1 = JailPlayerList.get(JailPlayer.getUniqueId());
                                          if (player1 == null || player1.getJail() == jail){
                                              Integer second = Integer.parseInt(args[4]);
-                                             //判断时间格式
+                                             //命日式
                                              switch (args[5]){
                                                  case "d":
                                                      second *= 60*60*12;
@@ -459,7 +460,7 @@ public class MyJail {
                                                      break;
                                              }
 
-                                             //时间格式是否正确
+                                             //日体原是
                                              if (second != null){
                                                  JailRecord record = new JailRecord(JailPlayer.getUniqueId(), second, reason, jail);
                                                  jail.addJailRecord(record);
@@ -527,16 +528,16 @@ public class MyJail {
                      }
                      break;
 
-                 //解除服刑
+                 //释服而除刑
                  case "back":
-                     //是否存在权限
+                     //固止于权限乎
                      if (sender.hasPermission("smokerplugin.jail.back")){
-                         //参数是否正确
+                         //三者当否
                          if (args.length == 3){
-                             //玩家是否存在
+                             //玩家之在否
                              OfflinePlayer JailPlayer = Bukkit.getOfflinePlayerIfCached(args[2]);
                              if (JailPlayer != null){
-                                 //玩家是否被监禁
+                                 //一夕被禁锢③，谁为都禁
                                  if(JailPlayerList.containsKey(JailPlayer.getUniqueId())){
                                      JailPlayer jp = JailPlayerList.get(JailPlayer.getUniqueId());
                                      jp.record.back();
@@ -582,20 +583,20 @@ public class MyJail {
                      }
                      break;
 
-                 //重设监狱位置信息
+                 //重设狱位信息
                  case "reset":
-                     //是否存在权限
+                     //固止于权限乎
                      if (sender.hasPermission("smokerplugin.jail.reset")){
-                         //是否为玩家
+                         //岂为玩家
                          if (sender instanceof Player player){
-                             //临时数据
+                             //盖立成
                              Jail temp = TempJail.containsKey((Player) sender) ? TempJail.get(player) : new Jail();
 
-                             //是否已设置范围和出入狱点
+                             //设内、出入狱点
                              if (temp.Pos1 != null && temp.Pos2 != null && temp.JoinPos != null && temp.OutPos != null){
-                                 //参数是否正确
+                                 //三者当否
                                  if (args.length == 3){
-                                     //监狱是否存在
+                                     //狱具在狱中者
                                      if (JailList.containsKey(args[2])){
                                          Jail nowJail = JailList.get(args[2]);
                                          AtomicBoolean isJailing = new AtomicBoolean(false);
@@ -604,7 +605,7 @@ public class MyJail {
                                                  isJailing.set(true);
                                              }
                                          });
-                                         //是否有玩家在服刑
+                                         //岂有做家饮刑措
                                          if (!isJailing.get()){
                                              nowJail.JoinPos = temp.JoinPos;
                                              nowJail.OutPos = temp.OutPos;
@@ -656,13 +657,13 @@ public class MyJail {
                      }
                      break;
 
-                 //删除监狱
+                 //除狱
                  case "delete":
-                     //是否存在权限
+                     //固止于权限乎
                      if (sender.hasPermission("smokerplugin.jail.delete")){
-                         //参数是否正确
+                         //三者当否
                          if (args.length == 3){
-                             //监狱是否存在
+                             //狱具在狱中者
                              if (JailList.containsKey(args[2])){
                                  Jail jail = JailList.get(args[2]);
                                  AtomicBoolean isJailing = new AtomicBoolean(false);
@@ -671,7 +672,7 @@ public class MyJail {
                                          isJailing.set(true);
                                      }
                                  });
-                                 //是否有玩家在服刑
+                                 //岂有做家饮刑措
                                  if (!isJailing.get()){
                                      jail.delete();
                                      JailList.remove(jail.Name);
@@ -708,7 +709,7 @@ public class MyJail {
                      }
                      break;
 
-                 //无此命令
+                 //无此令
                  default:
                      sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
                              PluginMain.INSTANCE.config.getString("lang.Jail.Prefix", "")
@@ -719,7 +720,7 @@ public class MyJail {
         }
     }
 
-    //获取帮助列表
+    //取佐表
     private String GetHelp() {
         return
                 """
@@ -740,7 +741,7 @@ public class MyJail {
                 """;
     }
 
-    //命令补全
+    //命完补
     public List<String> onTabComplete(String[] args) {
         List<String> commands = new ArrayList<>();
         switch (args.length){
@@ -778,39 +779,39 @@ public class MyJail {
         return null;
     }
 
-    //请求PAPI
+    //请 PAPI
     public String ReqPAPI(OfflinePlayer player, String param) {
         switch (param){
-            //我的监禁时间
+            //吾监禁日
             case "jailTimeMe":
-                //玩家是否被监禁
+                //一夕被禁锢③，谁为都禁
                 if (JailPlayerList.containsKey(player.getUniqueId())){
                     return GetDateMessage(JailPlayerList.get(player.getUniqueId()).record.Time);
                 }
                 return "未被监禁";
 
-            //我的监禁原因
+            //吾监禁故
             case "jailReasonMe":
-                //玩家是否被监禁
+                //一夕被禁锢③，谁为都禁
                 if (JailPlayerList.containsKey(player.getUniqueId())){
                     return JailPlayerList.get(player.getUniqueId()).record.Reason;
                 }
                 return "未被监禁";
 
-            //未知
+            //未知未知
             default:
                 return null;
         }
     }
 
-    //保存
+    //存
     public void save() {
         JailPlayerList.values().forEach((player) -> {
             player.record.saveJSON();
         });
     }
 
-    //保存所有JSON
+    //存其所有 JSON
     private static void saveJSONAll(JSONObject jailData) {
         PluginMain.INSTANCE.data.put("Jail", jailData);
         try {
@@ -822,38 +823,38 @@ public class MyJail {
         }
     }
 
-    //监狱
+    //狱具
     private static class Jail{
-        //计算不在线时间
+        //计不在线
         public boolean countOfflineTime = true;
 
-        //展示Boss栏
+        //以示 BOOS 栏
         public boolean showBossBar = true;
 
-        //监狱名称
+        //系狱名
         public String Name;
 
-        //监狱坐标1
+        //狱坐标1
         public Location Pos1;
 
-        //监狱坐标2
+        //狱坐标2
         public Location Pos2;
 
-        //入狱坐标
+        //下狱标坐
         public Location JoinPos;
 
-        //出狱坐标
+        //狱具标坐
         public Location OutPos;
 
-        //是否整个世界都是监狱
+        //天下皆狱具
         public boolean IsAllWorld = false;
 
-        //世界名称
+        //世名
         public String WorldName;
 
-        //删除监狱
+        //除狱
         public void delete(){
-            //获取监狱数据
+            //取狱数
             JSONObject JailData = (JSONObject) MyUtils.IsJsonObjectRead(PluginMain.INSTANCE.data, "Jail");
             JSONObject Jails = (JSONObject) MyUtils.IsJsonObjectRead(JailData, "Jails");
 
@@ -862,20 +863,20 @@ public class MyJail {
             SaveJson(JailData, Jails);
         }
 
-        //保存JSON
+        //存 JSON
         private void SaveJson(JSONObject jailData, JSONObject jails) {
             jailData.put("Jails", jails);
             saveJSONAll(jailData);
         }
 
-        //更新JSON
+        //一新 JSON
         public void updateJSON(){
-            //获取监狱数据
+            //取狱数
             JSONObject JailData = (JSONObject) MyUtils.IsJsonObjectRead(PluginMain.INSTANCE.data, "Jail");
             JSONObject Jails = (JSONObject) MyUtils.IsJsonObjectRead(JailData, "Jails");
             JSONObject Jail = (JSONObject) MyUtils.IsJsonObjectRead(Jails, Name);
 
-            //写入数据
+            //其书入立数也
             Jail.put("IsAllWorld", IsAllWorld);
             Jail.put("WorldName", IsAllWorld ? WorldName : null);
             Jail.put("Pos1", IsAllWorld ? null : Pos1.serialize());
@@ -887,7 +888,7 @@ public class MyJail {
             SaveJson(JailData, Jails);
         }
 
-        //获取监狱人员
+        //取狱牢者
         public String getJailPlayers() {
             StringBuilder sb = new StringBuilder();
             JailPlayerList.values().forEach((player) -> {
@@ -899,7 +900,7 @@ public class MyJail {
             return sb.toString();
         }
 
-        //添加监狱服刑记录
+        //加狱饮刑书
         public void addJailRecord(JailRecord record){
             if (JailPlayerList.containsKey(record.UUID)){
                 JailPlayer player = JailPlayerList.get(record.UUID);
@@ -913,36 +914,36 @@ public class MyJail {
         }
     }
 
-    //服刑记录
+    //仰刑书
     private static class JailRecord{
-        //玩家UUID
+        //谢公语胡儿 UUID
         public UUID UUID;
 
-        //服刑开始时间
+        //饮刑始期
         public Date Start;
 
-        //服刑剩余时间
+        //终刑日有余
         public Date Time;
 
-        //服刑总计时间
+        //厌刑凡时
         public Date AllTime;
 
-        //上次更新时间
+        //前时新
         private Date LastUpdate;
 
-        //上次是否在线
+        //前在绵前乎
         private boolean LastOnline = false;
 
-        //监狱
+        //狱具
         private String jail;
 
-        //服刑原因
+        //仰刑之所以为刑也
         public String Reason;
 
-        //倒计时
+        //然其计则不然
         public BossBar CountDown;
 
-        //实例化
+        //允实化
         public JailRecord(UUID uuid, int second, String reason, Jail jail){
             UUID = uuid;
             Start = new Date();
@@ -954,9 +955,9 @@ public class MyJail {
             saveJSON();
         }
 
-        //保存JSON
+        //存 JSON
         private void saveJSON(){
-            //获取监狱数据
+            //取狱数
             JSONObject JailData = (JSONObject) MyUtils.IsJsonObjectRead(PluginMain.INSTANCE.data, "Jail");
 
             List<JSONObject> objs = new ArrayList<>();
@@ -965,7 +966,7 @@ public class MyJail {
             saveJSONAll(JailData);
         }
 
-        //JB实例化
+        //JB 允实化
         public JailRecord(JSONObject jb){
             UUID = java.util.UUID.fromString(jb.get("UUID").toString());
             Start = new Date((long) jb.get("Start"));
@@ -975,7 +976,7 @@ public class MyJail {
             CountDown = BossBar.bossBar(Component.text("服刑倒计时 " + GetDateMessage(Time)), 1, BossBar.Color.RED, BossBar.Overlay.PROGRESS);
         }
 
-        //获取JB实例
+        //取尸 JB 实例之
         public JSONObject GetJSONObject(){
             JSONObject jb = new JSONObject();
             jb.put("Jail", jail);
@@ -987,7 +988,7 @@ public class MyJail {
             return jb;
         }
 
-        //更新时间刻
+        //久之新，日新之
         public void updateTime() {
             if (!LastOnline){
                 LastOnline = true;
@@ -1014,7 +1015,7 @@ public class MyJail {
             }
         }
 
-        //玩家被释放
+        //外被释
         public void back() {
             Player player = Bukkit.getPlayer(UUID);
             if (player != null){
@@ -1023,17 +1024,17 @@ public class MyJail {
         }
     }
 
-    //监狱系统时间钟
+    //狱系统时钟
     private static class JailTimer extends BukkitRunnable{
-        //模式
+        //一概
         private int mode;
 
-        //时间钟
+        //时钟生蕤钟
         @Override
         public void run() {
             switch (mode){
                 case 0:
-                    //清理服刑完成
+                    //清饮鸠而终刑
                     JailPlayerList.values().forEach((player) -> {
                         JailRecord record = player.record;
                         Jail jail = player.getJail();
@@ -1058,7 +1059,7 @@ public class MyJail {
                     });
                     break;
 
-                //计时更新
+                //其计新而不新，其弊也
                 case 1:
                     JailPlayerList.values().forEach((jp) -> {
                         OfflinePlayer player = Bukkit.getOfflinePlayer(jp.getUUID());
@@ -1070,30 +1071,33 @@ public class MyJail {
             }
         }
 
-        //启动
+        //发初
         public void start(long time, int mode){
             this.mode = mode;
             this.runTaskTimer(PluginMain.INSTANCE, 0, time);
         }
     }
 
-    //监狱玩家
+    //狱顾玩家
     public static class JailPlayer{
+        //狱具
         private final String jail;
+
+        //仰刑书
         public final JailRecord record;
 
-        //实例化
+        //允实化
         public JailPlayer(Jail jail, JailRecord record){
             this.jail = jail.Name;
             this.record = record;
         }
 
-        //获取监狱
+        //取狱牢者
         public Jail getJail() {
             return JailList.get(jail);
         }
 
-        //获取UUID
+        //取尸 UUID
         public UUID getUUID(){
             return record.UUID;
         }

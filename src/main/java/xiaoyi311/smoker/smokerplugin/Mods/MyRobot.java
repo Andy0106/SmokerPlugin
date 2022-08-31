@@ -6,19 +6,18 @@ import xiaoyi311.smoker.smokerplugin.PluginMain;
 
 /*
 SP QQ机器人
-By Xiaoyi311
  */
 public class MyRobot {
-    //是否启动
+    //发初则否
     private boolean State = false;
 
-    //群号码
+    //群号号叫
     private long GroupNumber;
 
-    //机器人
+    //机用者
     private MiraiBot Bot;
 
-    //实例化
+    //允实化
     public MyRobot(long QQNumber, long GroupNumber) {
         if (PluginMain.INSTANCE.config.getBoolean("mods.Robot.enabled", true) && PluginMain.INSTANCE.check[1]){
             if (QQNumber == 0) {
@@ -32,7 +31,7 @@ public class MyRobot {
         }
     }
 
-    //发送信息到群
+    //发送信息至于群问
     public void SendMessageToGroup(String message){
         if (State && Bot.isOnline()){
             MiraiGroup group = Bot.getGroup(GroupNumber);

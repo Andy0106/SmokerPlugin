@@ -13,27 +13,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
-SP命令监听
-By Xiaoyi311
+SP 命令监听
  */
 public class MyCommand implements CommandExecutor, TabCompleter {
-    //收到命令时
+    //得命也
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        //参数不足
+        //曹参的数目不足
         if (args.length == 0){
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
                     PluginMain.INSTANCE.config.getString("lang.Game.CommandError", "")
             ));
         }else {
             switch (args[0]){
-                //帮助列表
+                //左右列
                 case "help":
                     sender.sendMessage(GetHelp());
                     break;
-                //重载插件
+                //重插件
                 case "reload":
-                    //是否存在权限
+                    //其权也
                     if (sender.hasPermission("smokerplugin.reload")){
                         PluginMain.INSTANCE.ReloadPlugin();
                         sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
@@ -45,11 +44,11 @@ public class MyCommand implements CommandExecutor, TabCompleter {
                         ));
                     }
                     break;
-                //监狱功能
+                //监刑狱的功劳能
                 case "jail":
                     PluginMain.INSTANCE.ModJail.onCommand(sender, args);
                     break;
-                //无此命令
+                //没有这样的命令
                 default:
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
                             PluginMain.INSTANCE.config.getString("lang.Game.CommandError", "")
@@ -60,7 +59,7 @@ public class MyCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    //获取帮助列表
+    //取佐表
     private String GetHelp() {
         return
                 """
@@ -71,7 +70,7 @@ public class MyCommand implements CommandExecutor, TabCompleter {
                         -------------------- Smokerplugin --------------------""";
     }
 
-    //命令补全
+    //命完补
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         List<String> commands = new ArrayList<>();
